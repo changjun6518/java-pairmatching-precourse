@@ -1,4 +1,4 @@
-package pairmatching.util.constant;
+package pairmatching.constant;
 
 public enum InputViewMessage {
     ASK_USER_CHOICE_MESSAGE("기능을 선택하세요."),
@@ -10,5 +10,10 @@ public enum InputViewMessage {
 
     InputViewMessage(String message) {
         this.message = message;
+    }
+
+    @Override
+    public String toString() {
+        return message;
     }
 }
