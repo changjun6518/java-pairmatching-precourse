@@ -13,7 +13,7 @@ import java.util.List;
 public class Matching {
     List<String> crewList = CrewFileReader.readCrewList();
 
-    private void shuffleList() {
-        List<String> shuffledList = Randoms.shuffle(crewList);
+    public List<String> shuffleList() {
+        return Randoms.shuffle(crewList);
     }
 }
