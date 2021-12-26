@@ -26,8 +26,11 @@ class MatchingTest {
         // given
         Matching matching = new Matching();
         // when
-        matching.shuffleList();
-        matching.updateMatchedCrew(Level.LEVEL1);
+        matching.match(Level.LEVEL1);
+        matching.match(Level.LEVEL1);
+        matching.match(Level.LEVEL1);
+        matching.match(Level.LEVEL1);
+        matching.match(Level.LEVEL1);
         // then
         CrewRepository crewRepository = matching.getCrewRepository();
         List<Crew> backEndCrewList = crewRepository.getBackEndCrewList();

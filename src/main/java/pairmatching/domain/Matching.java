@@ -16,11 +16,38 @@ public class Matching {
     private CrewRepository crewRepository = new CrewRepository();
     List<String> crewList = CrewFileReader.readCrewList(BACK_END_FILE_PATH);
 
+    public void match(Level level) {
+        int count = 0;
+        while (count < 3) {
+            count++;
+            shuffleList();
+            if (isPossibleMatch(level)) {
+                updateMatchedCrew(level);
+                return;
+            }
+        }
+        throw new IllegalArgumentException("3번 이상 매칭이 되지 않았습니다!");
+    }
+
     public List<String> shuffleList() {
         return crewList = Randoms.shuffle(crewList);
     }
 
-    public void updateMatchedCrew(Level level) {
+    private boolean isPossibleMatch(Level level) {
+        for (int i = 0; i < crewList.size() - 2; i = i + 2) {
+            Crew crew1 = find(crewList.get(i));
+            Crew crew2 = find(crewList.get(i + 1));
+            if (!crew1.isPossibleMatch(level, crew2)) {
+                return false;
+            }
+            if (!crew2.isPossibleMatch(level, crew1)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void updateMatchedCrew(Level level) {
         for (int i = 0; i < crewList.size() - 2; i = i + 2) {
             Crew temp1 = find(crewList.get(i));
             Crew temp2 = find(crewList.get(i + 1));
