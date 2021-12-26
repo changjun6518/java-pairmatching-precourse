@@ -39,6 +39,7 @@ public class MatchingApplication {
             } else if (userChoice.equals("3")) {
                 crewRepository = new CrewRepository();
                 matchingHistory = new HashMap<>();
+                OutputView.printResetMessage();
             } else if (userChoice.equals("Q")) {
                 break;
             }
