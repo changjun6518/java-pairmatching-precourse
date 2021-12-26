@@ -10,8 +10,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static pairmatching.constant.SystemMessage.BACK_END_FILE_PATH;
+
 public class Matching {
-    List<String> crewList = CrewFileReader.readCrewList();
+    List<String> crewList = CrewFileReader.readCrewList(BACK_END_FILE_PATH);
 
     public List<String> shuffleList() {
         return Randoms.shuffle(crewList);
