@@ -37,7 +37,8 @@ public class MatchingApplication {
                 List<String> matchingCrewList = matching.getMatchingCrewList();
                 OutputView.printMatchingResult(matchingCrewList);
             } else if (userChoice.equals("3")) {
-
+                crewRepository = new CrewRepository();
+                matchingHistory = new HashMap<>();
             } else if (userChoice.equals("Q")) {
                 break;
             }
