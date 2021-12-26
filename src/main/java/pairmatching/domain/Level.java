@@ -26,4 +26,13 @@ public enum Level {
         }
         return "  - " + name + ": " + String.join(" | ", missions);
     }
+
+    public static Level of(String name) {
+        for (Level level : Level.values()) {
+            if (level.name.equals(name)) {
+                return level;
+            }
+        }
+        return null;
+    }
 }

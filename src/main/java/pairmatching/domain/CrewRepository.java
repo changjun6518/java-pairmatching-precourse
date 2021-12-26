@@ -27,7 +27,10 @@ public class CrewRepository {
                 .collect(Collectors.toList());
     }
 
-    public List<Crew> getBackEndCrewList() {
-        return backEndCrewList;
+    public List<Crew> getCrewListBy(Course course) {
+        if (course==Course.BACK_END) {
+            return backEndCrewList;
+        }
+        return frontEndCrewList;
     }
 }

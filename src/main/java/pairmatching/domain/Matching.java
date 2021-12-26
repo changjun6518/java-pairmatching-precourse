@@ -11,18 +11,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static pairmatching.constant.SystemMessage.BACK_END_FILE_PATH;
+import static pairmatching.constant.SystemMessage.FRONT_END_FILE_PATH;
 
 public class Matching {
-    private CrewRepository crewRepository = new CrewRepository();
-    List<String> crewList = CrewFileReader.readCrewList(BACK_END_FILE_PATH);
+    private List<String> matchingCrewList;
 
-    public void match(Level level) {
+    public Matching(Course course) {
+        setMatchingCrewList(course);
+    }
+
+    private void setMatchingCrewList(Course course) {
+        if (course == Course.BACK_END) {
+            matchingCrewList = CrewFileReader.readCrewList(BACK_END_FILE_PATH);
+            return;
+        }
+        matchingCrewList = CrewFileReader.readCrewList(FRONT_END_FILE_PATH);
+
+    }
+
+    public void match(Level level, List<Crew> crewList) {
         int count = 0;
         while (count < 3) {
             count++;
             shuffleList();
-            if (isPossibleMatch(level)) {
-                updateMatchedCrew(level);
+            if (isPossibleMatch(level, crewList)) {
+                updateMatchedCrew(level, crewList);
                 return;
             }
         }
@@ -30,13 +43,13 @@ public class Matching {
     }
 
     public List<String> shuffleList() {
-        return crewList = Randoms.shuffle(crewList);
+        return matchingCrewList = Randoms.shuffle(matchingCrewList);
     }
 
-    private boolean isPossibleMatch(Level level) {
+    private boolean isPossibleMatch(Level level, List<Crew> crewList) {
         for (int i = 0; i < crewList.size() - 2; i = i + 2) {
-            Crew crew1 = find(crewList.get(i));
-            Crew crew2 = find(crewList.get(i + 1));
+            Crew crew1 = find(matchingCrewList.get(i), crewList);
+            Crew crew2 = find(matchingCrewList.get(i + 1), crewList);
             if (!crew1.isPossibleMatch(level, crew2)) {
                 return false;
             }
@@ -47,26 +60,22 @@ public class Matching {
         return true;
     }
 
-    private void updateMatchedCrew(Level level) {
-        for (int i = 0; i < crewList.size() - 2; i = i + 2) {
-            Crew temp1 = find(crewList.get(i));
-            Crew temp2 = find(crewList.get(i + 1));
+    private void updateMatchedCrew(Level level, List<Crew> crewList) {
+        for (int i = 0; i < matchingCrewList.size() - 2; i = i + 2) {
+            Crew temp1 = find(matchingCrewList.get(i), crewList);
+            Crew temp2 = find(matchingCrewList.get(i + 1), crewList);
             temp1.putMatchedCrew(level, temp2);
             temp2.putMatchedCrew(level, temp1);
         }
     }
 
-    private Crew find(String crewName) {
-        List<Crew> backEndCrewList = crewRepository.getBackEndCrewList();
+    private Crew find(String crewName, List<Crew> backEndCrewList) {
+//        List<Crew> backEndCrewList = crewRepository.getBackEndCrewList();
         for (Crew crew : backEndCrewList) {
             if (crew.isSameName(crewName)) {
                 return crew;
             }
         }
         return null;
-    }
-
-    public CrewRepository getCrewRepository() {
-        return crewRepository;
     }
 }

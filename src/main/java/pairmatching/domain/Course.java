@@ -18,4 +18,11 @@ public enum Course {
                 .map(course -> course.name)
                 .collect(Collectors.joining(" | "));
     }
+
+    public static Course of(String name) {
+        if (name.equals("백엔드")) {
+            return BACK_END;
+        }
+        return FRONT_END;
+    }
 }
