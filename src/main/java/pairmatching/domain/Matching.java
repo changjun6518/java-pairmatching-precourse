@@ -78,4 +78,8 @@ public class Matching {
         }
         return null;
     }
+
+    public List<String> getMatchingCrewList() {
+        return matchingCrewList;
+    }
 }

@@ -31,7 +31,11 @@ public class MatchingApplication {
                 OutputView.printMatchingResult(matchCrewList);
                 matchingHistory.put(courseLevelMission, matching);
             } else if (userChoice.equals("2")) {
-
+                OutputView.printProcessLevelMission();
+                String courseLevelMission = InputView.getCourseLevelMission();
+                Matching matching = matchingHistory.get(courseLevelMission);
+                List<String> matchingCrewList = matching.getMatchingCrewList();
+                OutputView.printMatchingResult(matchingCrewList);
             } else if (userChoice.equals("3")) {
 
             } else if (userChoice.equals("Q")) {
