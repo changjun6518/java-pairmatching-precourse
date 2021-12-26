@@ -29,14 +29,14 @@ public class Matching {
 
     }
 
-    public void match(Level level, List<Crew> crewList) {
+    public List<String> match(Level level, List<Crew> crewList) {
         int count = 0;
         while (count < 3) {
             count++;
             shuffleList();
             if (isPossibleMatch(level, crewList)) {
                 updateMatchedCrew(level, crewList);
-                return;
+                return matchingCrewList;
             }
         }
         throw new IllegalArgumentException("3번 이상 매칭이 되지 않았습니다!");
