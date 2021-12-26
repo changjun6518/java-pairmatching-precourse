@@ -23,5 +23,21 @@ public class Crew {
         return !matchedCrew.get(level).contains(crew);
     }
 
+    public boolean isSameName(String name) {
+        return this.name.equals(name);
+    }
 
+    public void putMatchedCrew(Level level, Crew crew) {
+        List<Crew> crewList = matchedCrew.get(level);
+        crewList.add(crew);
+        matchedCrew.put(level, crewList);
+    }
+
+    public HashMap<Level, List<Crew>> getMatchedCrew() {
+        return matchedCrew;
+    }
+
+    public String getName() {
+        return name;
+    }
 }
