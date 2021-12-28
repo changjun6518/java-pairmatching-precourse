@@ -20,6 +20,7 @@ public class MatchingApplication {
                 if (userChoice.equals("1")) {
                     OutputView.printProcessLevelMission();
                     String courseLevelMission = InputView.getCourseLevelMission();
+                    Validator.isValidCourseLevelMission(courseLevelMission);
                     if (matchingHistory.containsKey(courseLevelMission)) {
                         String rematchingChoice = InputView.getRematchingChoice();
                         if (rematchingChoice.equals("아니오")) {
@@ -27,19 +28,8 @@ public class MatchingApplication {
                         }
                     }
                     String[] split = courseLevelMission.split(", ");
-                    if (split.length != 3) {
-                        throw new IllegalArgumentException("[ERROR]");
-                    }
                     Course course = Course.of(split[0]);
                     Level level = Level.of(split[1]);
-                    List<String> missions = level.getMissions();
-                    try {
-                        if (!missions.contains(split[2])) {
-                            throw new IllegalArgumentException("[ERROR]");
-                        }
-                    } catch (IllegalArgumentException e) {
-                        System.out.println("[ERROR]");
-                    }
                     Matching matching = new Matching(course);
                     List<String> matchCrewList = matching.match(level, crewRepository.getCrewListBy(course));
                     OutputView.printMatchingResult(matchCrewList);

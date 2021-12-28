@@ -20,6 +20,36 @@ class MatchingApplicationTest extends NsTest {
         );
     }
 
+    @Test
+    public void mission_validation_test() throws Exception{
+        assertSimpleTest(
+                () -> {
+                    runException("1", "백엔드, 레벨1, 오징어게임");
+                    assertThat(output()).contains(ERROR_MESSAGE);
+                }
+        );
+    }
+
+    @Test
+    public void course_validation_test() throws Exception{
+        assertSimpleTest(
+                () -> {
+                    runException("1", "엔드, 레벨1, 자동차게임");
+                    assertThat(output()).contains(ERROR_MESSAGE);
+                }
+        );
+    }
+
+    @Test
+    public void level_validation_test() throws Exception{
+        assertSimpleTest(
+                () -> {
+                    runException("1", "백엔드, 레벨7, 자동차게임");
+                    assertThat(output()).contains(ERROR_MESSAGE);
+                }
+        );
+    }
+
     @Override
     public void runMain() {
         Application.main(new String[]{});

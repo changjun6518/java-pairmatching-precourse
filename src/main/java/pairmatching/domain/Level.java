@@ -39,4 +39,17 @@ public enum Level {
     public List<String> getMissions() {
         return missions;
     }
+
+    public static boolean has(String name) {
+        for (Level level : Level.values()) {
+            if (level.name.equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasMission(String mission) {
+        return missions.contains(mission);
+    }
 }

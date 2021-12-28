@@ -25,4 +25,13 @@ public enum Course {
         }
         return FRONT_END;
     }
+
+    public static boolean has(String name) {
+        for (Course course : Course.values()) {
+            if (course.name.equals(name)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
