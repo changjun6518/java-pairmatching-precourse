@@ -1,8 +1,10 @@
 package pairmatching;
 
+import pairmatching.controller.Controller;
+
 public class Application {
     public static void main(String[] args) {
-        MatchingApplication matchingApplication = new MatchingApplication();
-        matchingApplication.run();
+        Controller controller = new Controller();
+        controller.run();
     }
 }

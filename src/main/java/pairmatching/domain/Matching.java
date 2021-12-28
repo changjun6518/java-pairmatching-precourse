@@ -39,7 +39,7 @@ public class Matching {
                 return matchingCrewList;
             }
         }
-        throw new IllegalArgumentException("3번 이상 매칭이 되지 않았습니다!");
+        throw new IllegalArgumentException("[ERROR] 3번 이상 매칭이 되지 않았습니다!");
     }
 
     public List<String> shuffleList() {
