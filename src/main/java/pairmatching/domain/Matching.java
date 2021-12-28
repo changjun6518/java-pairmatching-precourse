@@ -47,7 +47,7 @@ public class Matching {
     }
 
     private boolean isPossibleMatch(Level level, List<Crew> crewList) {
-        for (int i = 0; i < crewList.size() - 2; i = i + 2) {
+        for (int i = 0; i < matchingCrewList.size() - 2; i = i + 2) {
             Crew crew1 = find(matchingCrewList.get(i), crewList);
             Crew crew2 = find(matchingCrewList.get(i + 1), crewList);
             if (!crew1.isPossibleMatch(level, crew2)) {

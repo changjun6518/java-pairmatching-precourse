@@ -1,6 +1,7 @@
 package pairmatching;
 
 import pairmatching.domain.*;
+import pairmatching.validation.Validator;
 import pairmatching.view.InputView;
 import pairmatching.view.OutputView;
 
@@ -12,37 +13,53 @@ public class MatchingApplication {
     private HashMap<String, Matching> matchingHistory = new HashMap<>();
 
     public void run() {
-        while (true) {
-            String userChoice = InputView.getUserChoice();
-            if (userChoice.equals("1")) {
-                OutputView.printProcessLevelMission();
-                String courseLevelMission = InputView.getCourseLevelMission();
-                if (matchingHistory.containsKey(courseLevelMission)) {
-                    String rematchingChoice = InputView.getRematchingChoice();
-                    if (rematchingChoice.equals("아니오")) {
-                        continue;
+        try {
+            while (true) {
+                String userChoice = InputView.getUserChoice();
+                Validator.isValidUserChoice(userChoice);
+                if (userChoice.equals("1")) {
+                    OutputView.printProcessLevelMission();
+                    String courseLevelMission = InputView.getCourseLevelMission();
+                    if (matchingHistory.containsKey(courseLevelMission)) {
+                        String rematchingChoice = InputView.getRematchingChoice();
+                        if (rematchingChoice.equals("아니오")) {
+                            continue;
+                        }
                     }
+                    String[] split = courseLevelMission.split(", ");
+                    if (split.length != 3) {
+                        throw new IllegalArgumentException("[ERROR]");
+                    }
+                    Course course = Course.of(split[0]);
+                    Level level = Level.of(split[1]);
+                    List<String> missions = level.getMissions();
+                    try {
+                        if (!missions.contains(split[2])) {
+                            throw new IllegalArgumentException("[ERROR]");
+                        }
+                    } catch (IllegalArgumentException e) {
+                        System.out.println("[ERROR]");
+                    }
+                    Matching matching = new Matching(course);
+                    List<String> matchCrewList = matching.match(level, crewRepository.getCrewListBy(course));
+                    OutputView.printMatchingResult(matchCrewList);
+                    matchingHistory.put(courseLevelMission, matching);
+                } else if (userChoice.equals("2")) {
+                    OutputView.printProcessLevelMission();
+                    String courseLevelMission = InputView.getCourseLevelMission();
+                    Matching matching = matchingHistory.get(courseLevelMission);
+                    List<String> matchingCrewList = matching.getMatchingCrewList();
+                    OutputView.printMatchingResult(matchingCrewList);
+                } else if (userChoice.equals("3")) {
+                    crewRepository = new CrewRepository();
+                    matchingHistory = new HashMap<>();
+                    OutputView.printResetMessage();
+                } else if (userChoice.equals("Q")) {
+                    break;
                 }
-                String[] split = courseLevelMission.split(", ");
-                Course course = Course.of(split[0]);
-                Level level = Level.of(split[1]);
-                Matching matching = new Matching(course);
-                List<String> matchCrewList = matching.match(level, crewRepository.getCrewListBy(course));
-                OutputView.printMatchingResult(matchCrewList);
-                matchingHistory.put(courseLevelMission, matching);
-            } else if (userChoice.equals("2")) {
-                OutputView.printProcessLevelMission();
-                String courseLevelMission = InputView.getCourseLevelMission();
-                Matching matching = matchingHistory.get(courseLevelMission);
-                List<String> matchingCrewList = matching.getMatchingCrewList();
-                OutputView.printMatchingResult(matchingCrewList);
-            } else if (userChoice.equals("3")) {
-                crewRepository = new CrewRepository();
-                matchingHistory = new HashMap<>();
-                OutputView.printResetMessage();
-            } else if (userChoice.equals("Q")) {
-                break;
             }
+        } catch (IllegalArgumentException exception) {
+            System.out.println(exception.getMessage());
         }
     }
 }

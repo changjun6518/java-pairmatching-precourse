@@ -35,4 +35,8 @@ public enum Level {
         }
         return null;
     }
+
+    public List<String> getMissions() {
+        return missions;
+    }
 }
