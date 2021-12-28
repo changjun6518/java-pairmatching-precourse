@@ -33,6 +33,13 @@ public class Validator {
         }
     }
 
+    public static void isValidRematchingChoice(String rematchingChoice) {
+        if (rematchingChoice.equals("네") || rematchingChoice.equals("아니오")) {
+            return;
+        }
+        throw new IllegalArgumentException("[ERROR] 네 또는 아니오로 대답하시오");
+    }
+
     private static boolean isValidUserChoiceNumber(String userChoice) {
         Pattern pattern = Pattern.compile("^[1-3]*$");
         return pattern.matcher(userChoice).matches();

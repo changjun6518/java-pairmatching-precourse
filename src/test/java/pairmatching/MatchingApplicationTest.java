@@ -34,7 +34,7 @@ class MatchingApplicationTest extends NsTest {
     public void course_validation_test() throws Exception{
         assertSimpleTest(
                 () -> {
-                    runException("1", "엔드, 레벨1, 자동차게임");
+                    runException("1", "엔드, 레벨1, 자동차경주");
                     assertThat(output()).contains(ERROR_MESSAGE);
                 }
         );
@@ -44,7 +44,17 @@ class MatchingApplicationTest extends NsTest {
     public void level_validation_test() throws Exception{
         assertSimpleTest(
                 () -> {
-                    runException("1", "백엔드, 레벨7, 자동차게임");
+                    runException("1", "백엔드, 레벨7, 자동차경주");
+                    assertThat(output()).contains(ERROR_MESSAGE);
+                }
+        );
+    }
+
+    @Test
+    public void rematching_choice_validation_test() throws Exception{
+        assertSimpleTest(
+                () -> {
+                    runException("1", "백엔드, 레벨1, 자동차경주","1", "백엔드, 레벨1, 자동차경주","넹");
                     assertThat(output()).contains(ERROR_MESSAGE);
                 }
         );

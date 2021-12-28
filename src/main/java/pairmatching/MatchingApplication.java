@@ -23,6 +23,7 @@ public class MatchingApplication {
                     Validator.isValidCourseLevelMission(courseLevelMission);
                     if (matchingHistory.containsKey(courseLevelMission)) {
                         String rematchingChoice = InputView.getRematchingChoice();
+                        Validator.isValidRematchingChoice(rematchingChoice);
                         if (rematchingChoice.equals("아니오")) {
                             continue;
                         }
