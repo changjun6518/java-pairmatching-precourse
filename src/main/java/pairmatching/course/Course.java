@@ -29,4 +29,8 @@ public enum Course {
     private void initCrews() {
         crews = CrewFileReader.readCrews(filePath);
     }
+
+    public List<String> getStringCrews() {
+        return crews.returnStringList();
+    }
 }

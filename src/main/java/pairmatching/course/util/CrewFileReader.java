@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CrewFileReader {
+    static List<String> crewsString = new ArrayList<>();
 
     public static Crews readCrews(String filePath) {
         try {
@@ -19,6 +20,7 @@ public class CrewFileReader {
             String str;
             Crews crews = new Crews();
             while ((str = bufferedReader.readLine()) != null) {
+                crewsString.add(str);
                 crews.add(str);
             }
             bufferedReader.close();
