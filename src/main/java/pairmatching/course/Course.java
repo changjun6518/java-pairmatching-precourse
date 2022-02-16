@@ -33,4 +33,8 @@ public enum Course {
     public List<String> getStringCrews() {
         return crews.returnStringList();
     }
+
+    public Crews getCrews() {
+        return crews;
+    }
 }
