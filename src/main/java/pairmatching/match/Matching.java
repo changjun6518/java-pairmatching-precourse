@@ -1,8 +1,7 @@
 package pairmatching.match;
 
-import camp.nextstep.edu.missionutils.Randoms;
-
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Matching {
@@ -18,7 +17,7 @@ public class Matching {
     }
 
     public void shuffle() {
-        Randoms.shuffle(stringCrews);
+        Collections.shuffle(stringCrews);
     }
 
     private boolean isEven() {
