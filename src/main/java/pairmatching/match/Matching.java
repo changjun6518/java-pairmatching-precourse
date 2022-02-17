@@ -19,7 +19,17 @@ public class Matching {
         matchingResult = new ArrayList<>();
     }
 
-    public void shuffle() {
+    public boolean match(Level level, Crews crews) {
+        shuffle();
+        combine();
+        if (isValidPairMatching(level, crews)) {
+            saveMatching(level, crews);
+            return true;
+        }
+        return false;
+    }
+
+    private void shuffle() {
         Collections.shuffle(stringCrews);
     }
 
@@ -27,7 +37,7 @@ public class Matching {
         return stringCrews.size() % 2 == 0;
     }
 
-    public void match() {
+    private void combine() {
         if (isEven()) {
             for (int i = 0; i < stringCrews.size(); i += PAIR_SIZE) {
                 matchingResult.add(stringCrews.subList(i, i + PAIR_SIZE));
@@ -40,13 +50,7 @@ public class Matching {
         matchingResult.add(stringCrews.subList(stringCrews.size() - 3, stringCrews.size()));
     }
 
-    public void printMatchingResult() {
-        for (List<String> strings : matchingResult) {
-            System.out.println(String.join(", ", strings));
-        }
-    }
-
-    public boolean isValidPairMatching(Level level, Crews crews) {
+    private boolean isValidPairMatching(Level level, Crews crews) {
         for (List<String> strings : matchingResult) {
             if (!crews.isValidPairMatching(level, strings)) {
                 return false;
@@ -55,7 +59,7 @@ public class Matching {
         return true;
     }
 
-    public void saveMatching(Level level, Crews crews) {
+    private void saveMatching(Level level, Crews crews) {
         for (List<String> matching : matchingResult) {
             crews.saveMatchingHistory(level, matching);
         }
