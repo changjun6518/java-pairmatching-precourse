@@ -3,7 +3,6 @@ package pairmatching.match;
 import pairmatching.crew.Crews;
 import pairmatching.level.Level;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,18 +11,18 @@ public class Matching {
     private static final int ODD_NUMBER_GAP = 3;
 
     private final List<String> stringCrews;
-    private final List<List<String>> matchingResult;
+    private final MatchingResult matchingResult;
 
     public Matching(List<String> stringCrews) {
         this.stringCrews = stringCrews;
-        matchingResult = new ArrayList<>();
+        matchingResult = new MatchingResult();
     }
 
     public boolean match(Level level, Crews crews) {
         shuffle();
         combine();
-        if (isValidPairMatching(level, crews)) {
-            saveMatching(level, crews);
+        if (matchingResult.isValidPairMatching(level, crews)) {
+            matchingResult.saveMatching(level, crews);
             return true;
         }
         return false;
@@ -48,21 +47,6 @@ public class Matching {
             matchingResult.add(stringCrews.subList(i, i + PAIR_SIZE));
         }
         matchingResult.add(stringCrews.subList(stringCrews.size() - 3, stringCrews.size()));
-    }
-
-    private boolean isValidPairMatching(Level level, Crews crews) {
-        for (List<String> strings : matchingResult) {
-            if (!crews.isValidPairMatching(level, strings)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private void saveMatching(Level level, Crews crews) {
-        for (List<String> matching : matchingResult) {
-            crews.saveMatchingHistory(level, matching);
-        }
     }
 
 }
