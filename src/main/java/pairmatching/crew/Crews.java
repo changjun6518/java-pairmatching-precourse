@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import static pairmatching.match.Matching.PAIR_SIZE;
+import static pairmatching.match.MatchingResult.PAIR_SIZE;
 
 public class Crews {
 

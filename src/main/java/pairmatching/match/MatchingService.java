@@ -9,24 +9,23 @@ public class MatchingService {
 
     private MatchingRepository matchingRepository = new MatchingRepository();
 
-    public void match(Level level, Course course) {
+    public MatchingResultDto match(Level level, Course course) {
         int tryCount = 0;
-        boolean success;
+        MatchingResultDto matchingResultDto;
         Matching matching = new Matching(course.getStringCrews());
         do {
-            success = matching.match(level, course.getCrews());
+            matchingResultDto = matching.match(level, course.getCrews());
             tryCount++;
-        } while (!success && tryCount < TRY_LIMIT);
+        } while (matchingResultDto.isFailedMatching() && tryCount < TRY_LIMIT);
 
-        if (isSuccessMatching(success, tryCount)) {
+        if (isSuccessMatching(matchingResultDto.isSuccessMatching(), tryCount)) {
             matchingRepository.add(matching);
+            return matchingResultDto;
         }
+        throw new IllegalArgumentException("3번 이상 페어 조합 실패!");
     }
 
     private boolean isSuccessMatching(boolean success, int tryCount) {
-        if (success && tryCount < TRY_LIMIT) {
-            return true;
-        }
-        throw new IllegalArgumentException("3번 이상 페어 조합 실패!");
+        return success && tryCount < TRY_LIMIT;
     }
 }

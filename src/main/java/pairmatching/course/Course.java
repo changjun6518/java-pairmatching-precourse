@@ -4,11 +4,13 @@ import pairmatching.course.util.CrewFileReader;
 import pairmatching.crew.Crew;
 import pairmatching.crew.Crews;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public enum Course {
-    BACK_END("백엔드 과정", "./src/main/resources/backend-crew.md"),
-    FRONT_END("프론트 과정", "./src/main/resources/frontend-crew.md"),
+    BACK_END("백엔드", "./src/main/resources/backend-crew.md"),
+    FRONT_END("프론트", "./src/main/resources/frontend-crew.md"),
     ;
 
     static{
@@ -36,5 +38,16 @@ public enum Course {
 
     public Crews getCrews() {
         return crews;
+    }
+
+    public static Course of(String name) {
+        return Arrays.stream(Course.values()).
+                filter(course -> course.isSameName(name))
+                .findFirst()
+                .orElseThrow(NoSuchElementException::new);
+    }
+
+    private boolean isSameName(String name) {
+        return this.name.equals(name);
     }
 }
