@@ -13,19 +13,30 @@ public class MatchingService {
         int tryCount = 0;
         MatchingResultDto matchingResultDto;
         Matching matching = new Matching(course.getStringCrews());
+        MatchingResult matchingResult;
         do {
-            matchingResultDto = matching.match(level, course.getCrews());
+            matchingResult = matching.match(level, course.getCrews());
             tryCount++;
-        } while (matchingResultDto.isFailedMatching() && tryCount < TRY_LIMIT);
+        } while (matchingResult.isFailedMatching() && tryCount < TRY_LIMIT);
 
-        if (isSuccessMatching(matchingResultDto.isSuccessMatching(), tryCount)) {
-            matchingRepository.add(matching);
-            return matchingResultDto;
-        }
-        throw new IllegalArgumentException("3번 이상 페어 조합 실패!");
+        checkSuccessMatching(matchingResult);
+        checkTryMatching(tryCount);
+
+        matchingResultDto = matchingResult.convertDto();
+
+        matchingRepository.add(matching);
+        return matchingResultDto;
     }
 
-    private boolean isSuccessMatching(boolean success, int tryCount) {
-        return success && tryCount < TRY_LIMIT;
+    private void checkSuccessMatching(MatchingResult matchingResult) {
+        if (matchingResult.isFailedMatching()) {
+            throw new IllegalArgumentException("3번 이상 페어 조합 실패!");
+        }
+    }
+
+    private void checkTryMatching(int tryCount) {
+        if (tryCount > TRY_LIMIT) {
+            throw new IllegalArgumentException("3번 이상 페어 조합 실패!");
+        }
     }
 }

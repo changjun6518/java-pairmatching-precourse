@@ -13,11 +13,11 @@ public class MatchingController {
         if (userChoice.equals("1")) {
             pairMatching();
         }
+        // TODO - 상황에 있는거 기능 구현하면돼
     }
 
     public void pairMatching() {
         MatchingInfoDto matchingInfoDto = InputView.getRequiredMatchingInfo();
-        // TODO - 상황에 있는거 기능 구현하면 돼
 
         MatchingResultDto matchingResultDto = matchingService.match(Level.of(matchingInfoDto.level), Course.of(matchingInfoDto.course));
         OutputView.printMatchingResult(matchingResultDto);

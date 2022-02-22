@@ -14,11 +14,11 @@ public class Matching {
         this.stringCrews = stringCrews;
     }
 
-    public MatchingResultDto match(Level level, Crews crews) {
+    public MatchingResult match(Level level, Crews crews) {
         shuffle();
         MatchingResult matchingResult = new MatchingResult();
-        MatchingResultDto matchingResultDto = matchingResult.match(stringCrews, level, crews);
-        return matchingResultDto;
+        matchingResult.match(stringCrews, level, crews);
+        return matchingResult;
     }
 
     private void shuffle() {

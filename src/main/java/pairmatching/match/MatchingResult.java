@@ -14,13 +14,11 @@ public class MatchingResult {
     public MatchingResult() {
     }
 
-    public MatchingResultDto match(List<String> stringCrews, Level level, Crews crews) {
+    public void match(List<String> stringCrews, Level level, Crews crews) {
         combine(stringCrews);
         if (isValidPairMatching(level, crews)) {
             saveMatching(level, crews);
-            return new MatchingResultDto(matchingResult);
         }
-        return new MatchingResultDto(new ArrayList<>());
     }
 
     private void combine(List<String> stringCrews) {
@@ -49,5 +47,17 @@ public class MatchingResult {
         for (List<String> matching : matchingResult) {
             crews.saveMatchingHistory(level, matching);
         }
+    }
+
+    public boolean isFailedMatching() {
+        return matchingResult.isEmpty();
+    }
+
+    public boolean isSuccessMatching() {
+        return !matchingResult.isEmpty();
+    }
+
+    public MatchingResultDto convertDto() {
+        return new MatchingResultDto(matchingResult);
     }
 }

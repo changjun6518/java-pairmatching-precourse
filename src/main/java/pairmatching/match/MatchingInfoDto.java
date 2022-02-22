@@ -1,7 +1,5 @@
 package pairmatching.match;
 
-import jdk.nashorn.internal.objects.annotations.Getter;
-
 public class MatchingInfoDto {
     public String course;
     public String level;

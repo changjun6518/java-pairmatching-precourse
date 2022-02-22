@@ -1,8 +1,10 @@
 package pairmatching.match;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pairmatching.course.Course;
 import pairmatching.level.Level;
+import pairmatching.view.OutputView;
 
 class MatchingServiceTest {
 
@@ -11,12 +13,27 @@ class MatchingServiceTest {
         // given
         Course course = Course.BACK_END;
         Level level = Level.LEVEL1;
-        MatchingService matchingService = new MatchingService();
+        Matching matching = new Matching(course.getStringCrews());
 
         // when
-        matchingService.match(level, course);
+        MatchingResult matchingResult = matching.match(level, course.getCrews());
 
         // then
-//        Assertions.assertTrue();
+        Assertions.assertTrue(matchingResult.isSuccessMatching());
+    }
+
+    @Test
+    public void serviceMatchTest() throws Exception{
+        // given
+        Course course = Course.BACK_END;
+        Level level = Level.LEVEL1;
+
+        MatchingService matchingService = new MatchingService();
+        // when
+        MatchingResultDto matchingResultDto = matchingService.match(level, course);
+
+        // then
+        OutputView.printMatchingResult(matchingResultDto);
+
     }
 }

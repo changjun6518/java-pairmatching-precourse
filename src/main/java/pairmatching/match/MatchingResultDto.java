@@ -8,12 +8,4 @@ public class MatchingResultDto {
     public MatchingResultDto(List<List<String>> matchingResults) {
         this.matchingResults = matchingResults;
     }
-
-    public boolean isFailedMatching() {
-        return matchingResults.isEmpty();
-    }
-
-    public boolean isSuccessMatching() {
-        return !matchingResults.isEmpty();
-    }
 }
