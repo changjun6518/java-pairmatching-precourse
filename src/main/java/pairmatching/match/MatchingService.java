@@ -2,6 +2,7 @@ package pairmatching.match;
 
 import pairmatching.course.Course;
 import pairmatching.level.Level;
+import pairmatching.mission.Mission;
 
 public class MatchingService {
     // 페어 매칭을 진행하는 역할
@@ -9,7 +10,8 @@ public class MatchingService {
 
     private MatchingRepository matchingRepository = new MatchingRepository();
 
-    public MatchingResultDto match(Level level, Course course) {
+    public MatchingResultDto match(Course course, Level level, Mission mission) {
+        MatchingInfo matchingInfo = new MatchingInfo(course, level, mission);
         int tryCount = 0;
         MatchingResultDto matchingResultDto;
         Matching matching = new Matching(course.getStringCrews());
@@ -22,10 +24,15 @@ public class MatchingService {
         checkSuccessMatching(matchingResult);
         checkTryMatching(tryCount);
 
+        matchingRepository.put(matchingInfo, matchingResult);
         matchingResultDto = matchingResult.convertDto();
 
-        matchingRepository.add(matching);
         return matchingResultDto;
+    }
+
+    public boolean isExist(Course course, Level level, Mission mission) {
+        MatchingInfo matchingInfo = new MatchingInfo(course, level, mission);
+        return matchingRepository.contains(matchingInfo);
     }
 
     private void checkSuccessMatching(MatchingResult matchingResult) {

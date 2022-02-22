@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import pairmatching.course.Course;
 import pairmatching.level.Level;
+import pairmatching.mission.Mission;
 import pairmatching.view.OutputView;
 
 class MatchingServiceTest {
@@ -27,10 +28,11 @@ class MatchingServiceTest {
         // given
         Course course = Course.BACK_END;
         Level level = Level.LEVEL1;
+        Mission mission = Mission.RACING_CAR;
 
         MatchingService matchingService = new MatchingService();
         // when
-        MatchingResultDto matchingResultDto = matchingService.match(level, course);
+        MatchingResultDto matchingResultDto = matchingService.match(course, level, mission);
 
         // then
         OutputView.printMatchingResult(matchingResultDto);
