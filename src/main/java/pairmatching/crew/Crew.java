@@ -19,8 +19,11 @@ public class Crew {
     }
 
     public boolean isMatched(Level level, String crewName) {
-        List<String> matchedCrews = crewsByLevel.get(level);
-        return matchedCrews.contains(crewName);
+        if (crewsByLevel.containsKey(level)) {
+            List<String> matchedCrews = crewsByLevel.get(level);
+            return matchedCrews.contains(crewName);
+        }
+        return true;
     }
 
     public void saveMatchCrew(Level level, String crewName) {

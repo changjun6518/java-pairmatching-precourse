@@ -10,18 +10,24 @@ public class MatchingController {
     private MatchingService matchingService = new MatchingService();
 
     public void func() {
-        while (true) {
+        try {
+            while (true) {
 
-            String userChoice = InputView.getUserChoice();
-            if (userChoice.equals("1")) {
-                pairMatching();
-            } else if (userChoice.equals("2")) {
-                lookupMatching();
-            } else if (userChoice.equals("3")) {
-                deleteAll();
+                String userChoice = InputView.getUserChoice();
+                if (userChoice.equals("1")) {
+                    pairMatching();
+                } else if (userChoice.equals("2")) {
+                    lookupMatching();
+                } else if (userChoice.equals("3")) {
+                    deleteAll();
+                } else if (userChoice.equals("Q")) {
+                    break;
+                }
             }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            func();
         }
-        // TODO - 예외처리 확실하게!
     }
 
     public void pairMatching() {
