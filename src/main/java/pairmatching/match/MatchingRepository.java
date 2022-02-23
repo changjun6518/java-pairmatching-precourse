@@ -19,4 +19,7 @@ public class MatchingRepository {
         return repository.containsKey(matchingInfo);
     }
 
+    public MatchingResult get(MatchingInfo matchingInfo) {
+        return repository.get(matchingInfo);
+    }
 }

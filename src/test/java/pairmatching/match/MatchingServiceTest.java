@@ -38,4 +38,23 @@ class MatchingServiceTest {
         OutputView.printMatchingResult(matchingResultDto);
 
     }
+
+    @Test
+    public void lookupMatchingResult() throws Exception{
+        // given
+        Course course = Course.BACK_END;
+        Level level = Level.LEVEL1;
+        Mission mission = Mission.RACING_CAR;
+
+        MatchingService matchingService = new MatchingService();
+
+        // when
+        matchingService.match(course, level, mission);
+
+        // then
+        Assertions.assertDoesNotThrow(()->{
+            matchingService.lookupMatchingResult(course, level, mission);
+        });
+
+    }
 }

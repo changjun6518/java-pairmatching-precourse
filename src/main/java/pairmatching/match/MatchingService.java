@@ -30,6 +30,14 @@ public class MatchingService {
         return matchingResultDto;
     }
 
+    public MatchingResultDto lookupMatchingResult(Course course, Level level, Mission mission) {
+        if (isExist(course, level, mission)) {
+            MatchingResult matchingResult = getMatchingResult(course, level, mission);
+            return matchingResult.convertDto();
+        }
+        throw new IllegalArgumentException("해당 과정 레벨 미션의 매칭이력이 없습니다");
+    }
+
     public boolean isExist(Course course, Level level, Mission mission) {
         MatchingInfo matchingInfo = new MatchingInfo(course, level, mission);
         return matchingRepository.contains(matchingInfo);
@@ -45,5 +53,10 @@ public class MatchingService {
         if (tryCount > TRY_LIMIT) {
             throw new IllegalArgumentException("3번 이상 페어 조합 실패!");
         }
+    }
+
+    private MatchingResult getMatchingResult(Course course, Level level, Mission mission) {
+        MatchingInfo matchingInfo = new MatchingInfo(course, level, mission);
+        return matchingRepository.get(matchingInfo);
     }
 }
