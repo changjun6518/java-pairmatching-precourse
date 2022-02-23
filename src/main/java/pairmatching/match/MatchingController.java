@@ -17,9 +17,11 @@ public class MatchingController {
                 pairMatching();
             } else if (userChoice.equals("2")) {
                 lookupMatching();
+            } else if (userChoice.equals("3")) {
+                deleteAll();
             }
         }
-        // TODO - 조회 기능 , 초기화 기능 추가, 예외처리 확실하게!
+        // TODO - 예외처리 확실하게!
     }
 
     public void pairMatching() {
@@ -44,5 +46,10 @@ public class MatchingController {
         Mission mission = Mission.of(matchingInfoDto.mission);
         MatchingResultDto matchingResultDto = matchingService.lookupMatchingResult(course, level, mission);
         OutputView.printMatchingResult(matchingResultDto);
+    }
+
+    public void deleteAll() {
+        matchingService.deleteAll();
+        OutputView.printDeleteMessage();
     }
 }

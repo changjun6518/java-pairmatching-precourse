@@ -54,4 +54,11 @@ public class Crews {
         thirdCrew.saveMatchCrew(level, firstCrew.toString());
         thirdCrew.saveMatchCrew(level, secondCrew.toString());
     }
+
+    public void deleteAll() {
+        for (String name : crews.keySet()) {
+            Crew crew = crews.get(name);
+            crew.deleteAll();
+        }
+    }
 }

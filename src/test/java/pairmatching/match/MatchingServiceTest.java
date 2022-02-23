@@ -57,4 +57,23 @@ class MatchingServiceTest {
         });
 
     }
+
+    @Test
+    public void initiationAll() throws Exception {
+        // given
+        Course course = Course.BACK_END;
+        Level level = Level.LEVEL1;
+        Mission mission = Mission.RACING_CAR;
+
+        MatchingService matchingService = new MatchingService();
+
+        // when
+        matchingService.match(course, level, mission);
+        matchingService.deleteAll();
+
+        // then
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            matchingService.lookupMatchingResult(course, level, mission);
+        });
+    }
 }

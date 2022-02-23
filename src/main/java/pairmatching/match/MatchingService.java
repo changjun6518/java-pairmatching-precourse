@@ -38,6 +38,11 @@ public class MatchingService {
         throw new IllegalArgumentException("해당 과정 레벨 미션의 매칭이력이 없습니다");
     }
 
+    public void deleteAll() {
+        matchingRepository.deleteAll();
+        Course.deleteAll();
+    }
+
     public boolean isExist(Course course, Level level, Mission mission) {
         MatchingInfo matchingInfo = new MatchingInfo(course, level, mission);
         return matchingRepository.contains(matchingInfo);

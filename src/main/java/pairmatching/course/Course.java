@@ -47,6 +47,12 @@ public enum Course {
                 .orElseThrow(NoSuchElementException::new);
     }
 
+    public static void deleteAll() {
+        for (Course course : Course.values()) {
+            course.crews.deleteAll();
+        }
+    }
+
     private boolean isSameName(String name) {
         return this.name.equals(name);
     }

@@ -22,4 +22,9 @@ public class MatchingRepository {
     public MatchingResult get(MatchingInfo matchingInfo) {
         return repository.get(matchingInfo);
     }
+
+    public void deleteAll() {
+        repository.clear();
+
+    }
 }

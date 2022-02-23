@@ -28,6 +28,10 @@ public class Crew {
         matchedCrews.add(crewName);
     }
 
+    public void deleteAll() {
+        crewsByLevel.clear();
+    }
+
     @Override
     public String toString() {
         return name;

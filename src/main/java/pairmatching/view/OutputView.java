@@ -11,4 +11,8 @@ public class OutputView {
             System.out.println(String.join(" : ", pair));
         }
     }
+
+    public static void printDeleteMessage() {
+        System.out.println("모든 정보가 초기화 됐습니다");
+    }
 }
